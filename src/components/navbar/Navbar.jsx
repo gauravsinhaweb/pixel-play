@@ -16,7 +16,7 @@ export const Navbar = () => {
               {" "}
               <div className="font-bold uppercase cursor-pointer opacity-90 hover:opacity-100">
                 pixel.
-                <span className=" text-rose-400  font-bold">play</span>
+                <span className=" text-rose-400 font-bold">play</span>
               </div>
             </Link>
           </div>
