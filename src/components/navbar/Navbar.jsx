@@ -7,6 +7,7 @@ import { BiTimeFive, BiHistory } from "react-icons/bi";
 import { Link } from "react-router-dom";
 
 export const Navbar = () => {
+  const all = "explore";
   return (
     <>
       <nav>
@@ -46,7 +47,7 @@ export const Navbar = () => {
               title="Explore"
               className="text-gray-300 hover:text-white text-2xl text-center px-2 py-2 m-2  cursor-pointer"
             >
-              <Link to="/explore">
+              <Link to={`/explore/?category/${all}`}>
                 <MdExplore />
               </Link>
             </div>
