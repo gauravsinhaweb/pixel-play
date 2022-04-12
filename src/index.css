@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Kodchasan:wght@200;300;400;500;600;700&family=Montserrat:wght@200;300;400;500;600;700;800;900&family=Work+Sans:wght@200;300;400;500;600;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,4 +8,14 @@
   .h-35 {
     height: 35rem;
   }
+}
+
+.montserrat {
+  font-family: "Montserrat", sans-serif;
+}
+.work-sans {
+  font-family: "Work Sans", sans-serif;
+}
+.kodchasan {
+  font-family: "Kodchasan", sans-serif;
 }
