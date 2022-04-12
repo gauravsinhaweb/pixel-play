@@ -8,7 +8,8 @@ export const Hero = () => {
   const { dataState, dataDispatch } = useDataContext();
   const videos = dataState.videos;
   const categories = dataState.categories;
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
+  const videoHeaderID = "AO_aGmNEMME";
   return (
     <>
       <div className="p-8 ">
@@ -16,7 +17,7 @@ export const Hero = () => {
           <div className="h-35 w-full bg-gray-800 rounded-lg overflow-hidden ">
             <iframe
               className="h-full w-full"
-              src="https://www.youtube.com/embed/zpOULjyy-n8?&mute=1"
+              src={`https://www.youtube.com/embed/${videoHeaderID}?&mute=1`}
               frameBorder="0"
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
@@ -33,9 +34,9 @@ export const Hero = () => {
                 <div
                   key={category.id}
                   onClick={() =>
-                    Navigate(`/explore/?category/${category.categoryName}`)
+                    navigate(`/explore/?category/${category.categoryName}`)
                   }
-                  className="relative w-72 h-96 cursor-pointer will-change-auto rounded-xl overflow-hidden hover:border-4 border-rose-400 shadow-lg transition-border duration-100 ease-in-out "
+                  className="border-4 border-transparent relative w-72 h-96 cursor-pointer will-change-auto  rounded-xl overflow-hidden hover:border-4 hover:border-rose-400 shadow-lg transition-border duration-100 ease-in-out "
                 >
                   <CategoryCard category={category} />
                 </div>
@@ -63,7 +64,7 @@ export const Hero = () => {
                         getVideoByCategory.slice(0, 8).map((video) => (
                           <div
                             key={video.id}
-                            onClick={() => Navigate(`/video/${video.id}`)}
+                            onClick={() => navigate(`/video/${video.id}`)}
                             className=" w-1/6 min-w-fit sm: bg-gray-800 rounded-lg overflow-hidden hover:scale-110 transition-scale delay-700 duration-200 ease-in-out"
                           >
                             <ThumbnailCard video={video} />

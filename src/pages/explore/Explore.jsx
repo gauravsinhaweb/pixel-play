@@ -6,10 +6,10 @@ import { categoryFilter } from "../../utils/util-index";
 
 export const Explore = () => {
   const { dataState } = useDataContext();
-  const Location = useLocation();
-  const Navigate = useNavigate();
+  const location = useLocation();
+  const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState(
-    Location.search.split("/")[1].replace(/%20/g, " ")
+    location.search.split("/")[1].replace(/%20/g, " ")
   );
 
   const videos = dataState.videos;
@@ -45,7 +45,7 @@ export const Explore = () => {
             return (
               <div
                 key={video.id}
-                onClick={() => Navigate(`/video/${video.id}`)}
+                onClick={() => navigate(`/video/${video.id}`)}
                 className=" w-1/6 min-w-fit  bg-gray-800 rounded-lg overflow-hidden"
               >
                 <ThumbnailCard video={video} />

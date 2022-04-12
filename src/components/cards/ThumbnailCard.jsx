@@ -25,18 +25,15 @@ export const ThumbnailCard = (props) => {
             src="https://yt3.ggpht.com/ytc/AKedOLSZBBX-LsEFQcPkY2GKImrPyIUxanR3KzLW6znx=s176-c-k-c0x00ffffff-no-rj"
             className="rounded-full max-h-10 max-w-10"
             loading="lazy"
+            alt="channel"
           />
 
           <div className="flex flex-col">
             <p className="text-gray-100 text-sm font-semibold max-w-readable truncate ">
               {title}
             </p>
-            <a
-              className="text-gray-400 text-xs mt-2 hover:text-gray-100"
-              href="https://www.youtube.com/channel/UCXeWGVQ2Y6njRP0cVi-X4FQ/featured"
-            >
-              {channelTitle}
-            </a>
+
+            {channelTitle}
 
             <p className="text-gray-400 text-xs mt-1">
               {statistics.viewCount} views . 3 years ago

@@ -65,7 +65,6 @@ function RoutePage() {
             <Route exact path="/liked" element={<LikedVideos />} />
             <Route exact path="/watchlater" element={<WatchLater />} />
             <Route exact path="/playlist" element={<Playlist />} />
-            {/* <Route exact path="/video" element={<VideoDetail />} /> */}
             <Route
               exact
               path={`/video/:${videoID}`}
