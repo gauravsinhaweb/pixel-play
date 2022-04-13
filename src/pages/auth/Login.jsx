@@ -13,6 +13,7 @@ export const Login = () => {
 
   const loginHandler = async (e) => {
     e.preventDefault();
+
     try {
       const response = await axios.post(`/api/auth/login`, loginData);
       if (response.status === 200) {
@@ -32,6 +33,7 @@ export const Login = () => {
 
   const loginAsGuestHandler = (e) => {
     e.preventDefault();
+
     setLoginData({
       email: "adarshbalika@gmail.com",
       password: "adarshbalika",
