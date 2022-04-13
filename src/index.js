@@ -5,6 +5,7 @@ import {
   DataProvider,
   FeatureProvider,
   FilterProvider,
+  AuthProvider,
 } from "./context/provider-index";
 import "./index.css";
 import { makeServer } from "./server";
@@ -14,13 +15,15 @@ makeServer();
 
 ReactDOM.render(
   <React.StrictMode>
-    <DataProvider>
-      <FeatureProvider>
-        <FilterProvider>
-          <App />
-        </FilterProvider>
-      </FeatureProvider>
-    </DataProvider>
+    <AuthProvider>
+      <DataProvider>
+        <FeatureProvider>
+          <FilterProvider>
+            <App />
+          </FilterProvider>
+        </FeatureProvider>
+      </DataProvider>
+    </AuthProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

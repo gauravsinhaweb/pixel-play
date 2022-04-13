@@ -11,8 +11,10 @@ import {
   Hero,
   History,
   LikedVideos,
+  Login,
   Page404,
   Playlist,
+  SignUp,
   VideoDetail,
   WatchLater,
 } from "../pages/pages-index";
@@ -55,6 +57,8 @@ function RoutePage() {
           <Routes>
             {" "}
             <Route exact path="/" element={<Hero />} />
+            <Route exact path="/login" element={<Login />} />
+            <Route exact path="/signup" element={<SignUp />} />
             <Route
               exact
               path={`/explore/?category/:${categoryName}`}
