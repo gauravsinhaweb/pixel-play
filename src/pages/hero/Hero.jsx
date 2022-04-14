@@ -65,7 +65,7 @@ export const Hero = () => {
                           <div
                             key={video.id}
                             onClick={() => navigate(`/video/${video.id}`)}
-                            className=" w-1/6 min-w-fit sm: bg-gray-800 rounded-lg overflow-hidden hover:scale-110 transition-scale delay-700 duration-200 ease-in-out"
+                            className=" w-1/6 min-w-fit sm: bg-gray-800 rounded-lg overflow-hidden hover:scale-110 transition-scale duration-200 ease-in-out"
                           >
                             <ThumbnailCard video={video} />
                           </div>

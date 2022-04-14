@@ -1,12 +1,21 @@
 import React from "react";
-import { GiHamburgerMenu } from "react-icons/gi";
+import { AiFillLike } from "react-icons/ai";
+import { BiTimeFive } from "react-icons/bi";
 import { BsSearch } from "react-icons/bs";
-import { AiFillHome, AiFillLike } from "react-icons/ai";
+import { FaUserCircle, FaHistory } from "react-icons/fa";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { HiOutlineLogout } from "react-icons/hi";
 import { MdExplore, MdPlaylistPlay } from "react-icons/md";
-import { BiTimeFive, BiHistory } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Navbar = () => {
+  const navigate = useNavigate();
+  const logoutHandler = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  };
+  const userLogin = localStorage.getItem("token");
+
   const all = "explore";
   return (
     <>
@@ -35,14 +44,6 @@ export const Navbar = () => {
             <GiHamburgerMenu />
           </div>
           <div className="flex flex-row mr-8 hidden md:flex">
-            <div
-              title="Home"
-              className="text-gray-300 hover:text-white text-2xl text-center px-2 py-2 m-2  cursor-pointer"
-            >
-              <Link to="/">
-                <AiFillHome />
-              </Link>
-            </div>
             <div
               title="Explore"
               className="text-gray-300 hover:text-white text-2xl text-center px-2 py-2 m-2  cursor-pointer"
@@ -80,9 +81,28 @@ export const Navbar = () => {
               className="text-gray-300 hover:text-white text-2xl text-center px-2 py-2 m-2  cursor-pointer"
             >
               <Link to="/history">
-                <BiHistory />
+                <FaHistory />
               </Link>
             </div>
+
+            {!userLogin ? (
+              <div
+                title="History"
+                className="text-gray-300 hover:text-white text-2xl text-center pl-12 mr-4 py-2 m-2  cursor-pointer"
+              >
+                <Link to="/login">
+                  <FaUserCircle />
+                </Link>{" "}
+              </div>
+            ) : (
+              <div
+                onClick={logoutHandler}
+                title="History"
+                className="text-gray-300 hover:text-white text-2xl text-center pl-12 mr-4 py-2 m-2  cursor-pointer"
+              >
+                <HiOutlineLogout />
+              </div>
+            )}
           </div>
         </div>
       </nav>
