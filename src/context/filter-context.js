@@ -3,10 +3,10 @@ import { filterReducer } from "../reducer/index";
 
 const FilterContext = createContext();
 
-export const FilterProvider = ({ children }) => {
+const FilterProvider = ({ children }) => {
   const [filterState, filterDispatch] = useReducer(filterReducer, {
-    watchLater: [],
     category: [],
+    search: "",
   });
 
   const value = { filterState, filterDispatch };
@@ -15,4 +15,6 @@ export const FilterProvider = ({ children }) => {
   );
 };
 
-export const useFilterContext = () => useContext(FilterContext);
+const useFilterContext = () => useContext(FilterContext);
+
+export { FilterProvider, useFilterContext };

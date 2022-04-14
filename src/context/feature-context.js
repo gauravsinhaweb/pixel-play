@@ -3,10 +3,11 @@ import { featureReducer } from "../reducer/index";
 
 const FeatureContext = createContext();
 
-export const FeatureProvider = ({ children }) => {
+const FeatureProvider = ({ children }) => {
   const [featureState, featureDispatch] = useReducer(featureReducer, {
     likedVideo: [],
     playlist: [],
+    watchLater: [],
     history: [],
   });
 
@@ -16,4 +17,6 @@ export const FeatureProvider = ({ children }) => {
   );
 };
 
-export const useFeatureContext = () => useContext(FeatureContext);
+const useFeatureContext = () => useContext(FeatureContext);
+
+export { FeatureProvider, useFeatureContext };

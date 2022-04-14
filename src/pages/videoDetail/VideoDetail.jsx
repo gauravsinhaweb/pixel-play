@@ -1,19 +1,50 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AiFillDislike, AiFillLike } from "react-icons/ai";
-import { BiTimeFive } from "react-icons/bi";
-import { CgPlayList } from "react-icons/cg";
-import { Link, useParams } from "react-router-dom";
+import { FaShare } from "react-icons/fa";
+import { MdPlaylistAdd } from "react-icons/md";
+import { useParams } from "react-router-dom";
 import { ThumbnailCard } from "../../components/index-component";
-import { useDataContext } from "../../context/data-context";
+import {
+  useDataContext,
+  useFeatureContext,
+} from "../../context/useContext-index";
+import { useAxios } from "../../services/auth/useAxios";
+import { dislikeHandler } from "../../utils/util-index";
 
 export const VideoDetail = () => {
   const param = useParams();
   const { dataState } = useDataContext();
+  const { featureState, featureDispatch } = useFeatureContext();
   const videoID = param.undefined;
   const videos = dataState.videos;
+  const likedVideos = featureState.likedVideo;
   const videoData = videos && videos.find((video) => video.id === videoID);
   const { id, title, duration, statistics } = videoData;
 
+  const likedVideoHandler = () =>
+    useAxios(
+      "post",
+      "/api/user/likes",
+      videoData,
+      featureDispatch,
+      "LIKED_VIDEOS"
+    );
+
+  const dislikeVideoHandler = (e) =>
+    dislikeHandler(e, id, featureDispatch, likedVideos);
+
+  const historyHandler = () => {
+    useAxios(
+      "post",
+      "/api/user/history",
+      videoData,
+      featureDispatch,
+      "HISTORY"
+    );
+  };
+  useEffect(() => {
+    historyHandler();
+  }, []);
   return (
     <>
       <div className="p-4">
@@ -31,28 +62,38 @@ export const VideoDetail = () => {
           <div className="flex flex-row hidden md:flex">
             <div
               title="Like"
-              onClick={() => console.log(id)}
-              className="text-gray-300 hover:text-white text-2xl text-center px-2 py-2 m-2  cursor-pointer"
+              onClick={likedVideoHandler}
+              className="flex items-center capitalize gap-2 text-gray-300 hover:text-white text-xl text-center px-2 py-2 m-2  cursor-pointer"
             >
-              <AiFillLike />
+              <span>
+                {" "}
+                <AiFillLike />
+              </span>
+              <span>like</span>
             </div>
             <div
               title="Dislike"
-              className="text-gray-300 hover:text-white text-2xl text-center px-2 py-2 m-2  cursor-pointer"
+              onClick={(e) => dislikeVideoHandler(e)}
+              className="flex items-center capitalize gap-2 text-gray-300 hover:text-white text-xl text-center px-2 py-2 m-2  cursor-pointer"
             >
               <AiFillDislike />
+              <span>dislike</span>
             </div>
             <div
               title="Add to playlist"
-              className="text-gray-300 hover:text-white text-2xl text-center px-2 py-2 m-2  cursor-pointer"
+              className="flex items-center capitalize gap-2 text-gray-300 hover:text-white text-xl text-center px-2 py-2 m-2  cursor-pointer"
             >
-              <CgPlayList />
+              <MdPlaylistAdd />
+
+              <span>save</span>
             </div>
             <div
               title="Watch Later"
-              className="text-gray-300 hover:text-white text-2xl text-center px-2 py-2 m-2  cursor-pointer"
+              className="flex items-center capitalize gap-2 text-gray-300 hover:text-white text-xl text-center px-2 py-2 m-2  cursor-pointer"
             >
-              <BiTimeFive />
+              <FaShare />
+
+              <span>share</span>
             </div>
           </div>
         </div>

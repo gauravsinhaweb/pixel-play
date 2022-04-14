@@ -27,6 +27,7 @@ const VIDEOS_API = "/api/videos";
 function RoutePage() {
   const { dataState, dataDispatch } = useDataContext();
   const [loading, setLoading] = useState(false);
+  const [searchValue, setSearchValue] = useState();
   let { categoryName, videoID, all } = useParams;
 
   useEffect(() => {
@@ -52,11 +53,15 @@ function RoutePage() {
     <>
       <Router>
         <ScrollToTop />
-        <Navbar />
+        <Navbar setSearchValue={setSearchValue} />
         {loading ? (
           <Routes>
             {" "}
-            <Route exact path="/" element={<Hero />} />
+            <Route
+              exact
+              path="/"
+              element={<Hero searchValue={searchValue} />}
+            />
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/signup" element={<SignUp />} />
             <Route

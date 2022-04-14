@@ -1,15 +1,20 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { CategoryCard, ThumbnailCard } from "../../components/index-component";
-import { useDataContext } from "../../context/data-context";
-import { categoryFilter } from "../../utils/util-index";
+import {} from "../../context/filter-context";
+import { useDataContext } from "../../context/useContext-index";
+import { categoryFilter, searchFilter } from "../../utils/util-index";
 
-export const Hero = () => {
-  const { dataState, dataDispatch } = useDataContext();
+export const Hero = (props) => {
+  const { searchValue } = props;
+  const { dataState } = useDataContext();
+
   const videos = dataState.videos;
   const categories = dataState.categories;
   const navigate = useNavigate();
   const videoHeaderID = "AO_aGmNEMME";
+  const searchHandler = searchFilter(videos, searchValue);
+
   return (
     <>
       <div className="p-8 ">
@@ -64,7 +69,6 @@ export const Hero = () => {
                         getVideoByCategory.slice(0, 8).map((video) => (
                           <div
                             key={video.id}
-                            onClick={() => navigate(`/video/${video.id}`)}
                             className=" w-1/6 min-w-fit sm: bg-gray-800 rounded-lg overflow-hidden hover:scale-110 transition-scale duration-200 ease-in-out"
                           >
                             <ThumbnailCard video={video} />

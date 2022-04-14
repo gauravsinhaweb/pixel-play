@@ -1,7 +1,7 @@
 export const filterReducer = (filterState, action) => {
   switch (action.type) {
-    case "PRODUCT":
-      return { ...filterState, product: action.payload };
+    case "SEARCH_VALUE":
+      return { ...filterState, search: action.payload };
     default:
       return filterState;
   }

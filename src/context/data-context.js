@@ -3,7 +3,7 @@ import { dataReducer } from "../reducer/index";
 
 const DataContext = createContext();
 
-export const DataProvider = ({ children }) => {
+const DataProvider = ({ children }) => {
   const [dataState, dataDispatch] = useReducer(dataReducer, {
     videos: [],
     categories: [],
@@ -13,4 +13,6 @@ export const DataProvider = ({ children }) => {
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
 };
 
-export const useDataContext = () => useContext(DataContext);
+const useDataContext = () => useContext(DataContext);
+
+export { DataProvider, useDataContext };
