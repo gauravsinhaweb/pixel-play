@@ -87,7 +87,7 @@ export const Login = () => {
                     password: e.target.value,
                   });
                 }}
-                placeholder="******************"
+                placeholder="*****************"
               />
               <p className="text-red text-xs italic">
                 Please choose a password.
