@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 export const SignUp = () => {
-  // axios.defaults.headers.common["authorization"] = encodedToken;
-
   return (
     <>
       <div className="lg:w-1/3 p-8 relative inset-0 m-auto bg-gray-900  flex-col">

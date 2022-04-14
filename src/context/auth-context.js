@@ -3,7 +3,7 @@ import { authReducer } from "../reducer/index";
 
 const AuthContext = createContext();
 
-export const AuthProvider = ({ children }) => {
+const AuthProvider = ({ children }) => {
   const [authState, authDispatch] = useReducer(authReducer, {
     isUserLoggedIn: false,
   });
@@ -12,4 +12,6 @@ export const AuthProvider = ({ children }) => {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
-export const useAuthContext = () => useContext(AuthContext);
+const useAuthContext = () => useContext(AuthContext);
+
+export { AuthProvider, useAuthContext };
