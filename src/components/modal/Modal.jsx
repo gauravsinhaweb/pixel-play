@@ -3,7 +3,11 @@ import {
   useDataContext,
   useFeatureContext,
 } from "../../context/useContext-index";
-import { addVideosInPlaylist, postPlaylist } from "../../utils/util-index";
+import {
+  addVideosInPlaylist,
+  isVideoInPlaylist,
+  postPlaylist,
+} from "../../utils/util-index";
 
 export const Modal = (props) => {
   const { videoID } = props;
@@ -13,7 +17,6 @@ export const Modal = (props) => {
     playlist,
     playlistInputValue,
     setPlaylistInputValue,
-    setVideoInPlaylist,
   } = useFeatureContext();
 
   const { dataState, setLoading } = useDataContext();
@@ -34,9 +37,8 @@ export const Modal = (props) => {
     );
     setPlaylistInputValue("");
   };
-
+  const currentVideo = videosData.find((video) => video.id === videoID);
   const checkedHandler = (playlistID) => {
-    const currentVideo = videosData.find((video) => video.id === videoID);
     addVideosInPlaylist(
       "post",
       `/api/user/playlists/${playlistID}`,
@@ -44,7 +46,6 @@ export const Modal = (props) => {
       setLoading
     );
   };
-
   return (
     <>
       <div>
@@ -58,21 +59,24 @@ export const Modal = (props) => {
             </h1>
             <ul className="py-4 text-xl">
               {playlist &&
-                playlist.map(({ title, _id }) => (
-                  <li
-                    key={_id}
-                    className="flex py-2 items-center text-xl capitalize gap-4"
-                  >
-                    <input
-                      onChange={() => checkedHandler(_id)}
-                      type="checkbox"
-                      id={_id}
-                      className=" h-4 w-4"
-                      placeholder="name"
-                    />
-                    <label htmlFor={_id}>{title}</label>
-                  </li>
-                ))}
+                playlist.map((item) => {
+                  const { title, _id } = item;
+                  return (
+                    <li
+                      key={_id}
+                      className="flex py-2 items-center text-xl capitalize gap-4"
+                    >
+                      <input
+                        onChange={() => checkedHandler(_id)}
+                        type="checkbox"
+                        id={_id}
+                        className=" h-4 w-4"
+                        placeholder="name"
+                      />
+                      <label htmlFor={_id}>{title}</label>
+                    </li>
+                  );
+                })}
             </ul>
             {playlist.length === 0 && (
               <div className="text-center py-8 font-bold work-sans text-xl text-gray-400 ">
