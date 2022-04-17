@@ -19,3 +19,7 @@
 .kodchasan {
   font-family: "Kodchasan", sans-serif;
 }
+
+html {
+  --bg-color-light: #cccccc;
+}

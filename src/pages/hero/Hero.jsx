@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { CategoryCard, ThumbnailCard } from "../../components/index-component";
-import {} from "../../context/filter-context";
 import { useDataContext } from "../../context/useContext-index";
 import { categoryFilter, searchFilter } from "../../utils/util-index";
 

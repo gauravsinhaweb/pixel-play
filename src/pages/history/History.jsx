@@ -14,7 +14,8 @@ export const History = () => {
         history
       </h1>
       <div className="flex justify-center py-8 flex-wrap gap-4">
-        {historyVideos &&
+        {historyVideos.length > 0 ? (
+          historyVideos &&
           historyVideos.map((video) => {
             return (
               <div
@@ -25,7 +26,14 @@ export const History = () => {
                 <ThumbnailCard video={video} />
               </div>
             );
-          })}
+          })
+        ) : (
+          <div className="w-full flex justify-center">
+            <h1 className="text-3xl text-center text-gray-400 my-8 font-semibold">
+              You have not watched any videos yet!
+            </h1>
+          </div>
+        )}
       </div>
     </>
   );

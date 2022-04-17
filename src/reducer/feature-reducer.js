@@ -6,6 +6,8 @@ export const featureReducer = (featureState, action) => {
       return { ...featureState, watchLater: action.payload };
     case "HISTORY":
       return { ...featureState, history: action.payload };
+    case "PLAYLIST_VIDEOS":
+      return { ...featureState, videosInPlaylist: action.payload };
     default:
       return featureState;
   }
