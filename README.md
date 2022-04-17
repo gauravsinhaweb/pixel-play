@@ -30,7 +30,7 @@ https://user-images.githubusercontent.com/75125943/163729314-3a7d1289-861b-4087-
 
 ### Features Added
 
-- Responsive Site - Mobile/ Tablet/ Desktop
+- Responsive Site - Tablet/ Desktop
 
 ---
 
