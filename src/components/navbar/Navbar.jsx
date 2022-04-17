@@ -2,21 +2,25 @@ import React from "react";
 import { AiFillLike } from "react-icons/ai";
 import { BiTimeFive } from "react-icons/bi";
 import { BsSearch } from "react-icons/bs";
-import { FaUserCircle, FaHistory } from "react-icons/fa";
+import { FaHistory, FaUserCircle } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { HiOutlineLogout } from "react-icons/hi";
 import { MdExplore, MdPlaylistPlay } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 
-export const Navbar = () => {
+export const Navbar = (props) => {
+  const { setSearchValue } = props;
   const navigate = useNavigate();
   const logoutHandler = () => {
     localStorage.removeItem("token");
     navigate("/");
   };
   const userLogin = localStorage.getItem("token");
-
   const all = "explore";
+
+  const searchValue = (e) => {
+    setSearchValue(e.target.value);
+  };
   return (
     <>
       <nav>
@@ -36,6 +40,7 @@ export const Navbar = () => {
               name="search"
               placeholder="Search"
               autoComplete="off"
+              onChange={(e) => searchValue(e)}
               className="flex-grow px-4 rounded-l-full text-gray-800 rounded-r-full text-lg focus:outline-none"
             />
             <BsSearch className=" m-3 mr-5 text-lg text-gray-700 w-4 h-4" />
