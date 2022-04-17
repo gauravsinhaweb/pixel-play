@@ -13,7 +13,8 @@ export const WatchLater = () => {
         watch later
       </h1>
       <div className="flex justify-center py-8 flex-wrap gap-4">
-        {watchLaterVideos &&
+        {watchLaterVideos.length > 0 ? (
+          watchLaterVideos &&
           watchLaterVideos.map((video) => {
             return (
               <div
@@ -24,7 +25,14 @@ export const WatchLater = () => {
                 <ThumbnailCard video={video} />
               </div>
             );
-          })}
+          })
+        ) : (
+          <div className="w-full flex justify-center">
+            <h1 className="text-3xl text-center text-gray-400 my-8 font-semibold">
+              You have not added any videos to your watch later list!
+            </h1>
+          </div>
+        )}
       </div>
     </>
   );

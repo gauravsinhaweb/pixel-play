@@ -5,6 +5,7 @@ export { Explore } from "./explore/Explore";
 export { WatchLater } from "./watchLater/WatchLater";
 export { Page404 } from "./page404/Page404";
 export { Playlist } from "./playlist/Playlist";
+export { VideosInPlaylist } from "./playlist/VideosInPlaylist";
 export { VideoDetail } from "./videoDetail/VideoDetail";
 export { Login } from "./auth/Login";
 export { SignUp } from "./auth/SignUp";

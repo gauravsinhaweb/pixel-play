@@ -7,12 +7,14 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { HiOutlineLogout } from "react-icons/hi";
 import { MdExplore, MdPlaylistPlay } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const Navbar = (props) => {
   const { setSearchValue } = props;
   const navigate = useNavigate();
   const logoutHandler = () => {
     localStorage.removeItem("token");
+    toast("you are logged out!");
     navigate("/");
   };
   const userLogin = localStorage.getItem("token");
@@ -27,7 +29,6 @@ export const Navbar = (props) => {
         <div className="w-screen flex flex-row items-center p-1 justify-between bg-gray-800 shadow-xs">
           <div className="ml-8 text-lg text-white hidden md:flex">
             <Link to="/">
-              {" "}
               <div className="font-bold uppercase cursor-pointer opacity-90 hover:opacity-100">
                 pixel.
                 <span className=" text-rose-400 font-bold">play</span>
@@ -57,38 +58,42 @@ export const Navbar = (props) => {
                 <MdExplore />
               </Link>
             </div>
-            <div
-              title="Like"
-              className="text-gray-300 hover:text-white text-2xl text-center px-2 py-2 m-2  cursor-pointer"
-            >
-              <Link to="/liked">
-                <AiFillLike />
-              </Link>
-            </div>
-            <div
-              title="Playlist"
-              className="text-gray-300 hover:text-white text-2xl text-center px-2 py-2 m-2  cursor-pointer"
-            >
-              <Link to="/playlist">
-                <MdPlaylistPlay />
-              </Link>
-            </div>
-            <div
-              title="Watch later"
-              className="text-gray-300 hover:text-white text-2xl text-center px-2 py-2 m-2  cursor-pointer"
-            >
-              <Link to="/watchlater">
-                <BiTimeFive />
-              </Link>
-            </div>
-            <div
-              title="History"
-              className="text-gray-300 hover:text-white text-2xl text-center px-2 py-2 m-2  cursor-pointer"
-            >
-              <Link to="/history">
-                <FaHistory />
-              </Link>
-            </div>
+            {userLogin ? (
+              <>
+                <div
+                  title="Like"
+                  className="text-gray-300 hover:text-white text-2xl text-center px-2 py-2 m-2  cursor-pointer"
+                >
+                  <Link to="/liked">
+                    <AiFillLike />
+                  </Link>
+                </div>
+                <div
+                  title="Playlist"
+                  className="text-gray-300 hover:text-white text-2xl text-center px-2 py-2 m-2  cursor-pointer"
+                >
+                  <Link to="/playlist">
+                    <MdPlaylistPlay />
+                  </Link>
+                </div>
+                <div
+                  title="Watch later"
+                  className="text-gray-300 hover:text-white text-2xl text-center px-2 py-2 m-2  cursor-pointer"
+                >
+                  <Link to="/watchlater">
+                    <BiTimeFive />
+                  </Link>
+                </div>
+                <div
+                  title="History"
+                  className="text-gray-300 hover:text-white text-2xl text-center px-2 py-2 m-2  cursor-pointer"
+                >
+                  <Link to="/history">
+                    <FaHistory />
+                  </Link>
+                </div>
+              </>
+            ) : null}
 
             {!userLogin ? (
               <div
@@ -97,7 +102,7 @@ export const Navbar = (props) => {
               >
                 <Link to="/login">
                   <FaUserCircle />
-                </Link>{" "}
+                </Link>
               </div>
             ) : (
               <div

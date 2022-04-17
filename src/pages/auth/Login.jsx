@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { useAuthContext } from "../../context/useContext-index";
 
 export const Login = () => {
@@ -19,14 +20,15 @@ export const Login = () => {
       if (response.status === 200) {
         localStorage.setItem("token", response.data.encodedToken);
         authDispatch({ type: "LOGIN", payload: true });
+        toast.success("you are logged in!");
         navigate("/");
       } else {
-        alert("Invalid Credentials");
+        toast.warn("Invalid Credentials");
       }
 
       // saving the encodedToken in the localStorage
     } catch (error) {
-      alert("Invalid Credentials");
+      toast.warn("Invalid Credentials");
       console.log(error);
     }
   };

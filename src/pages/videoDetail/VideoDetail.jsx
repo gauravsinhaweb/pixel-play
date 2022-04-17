@@ -2,49 +2,56 @@ import React, { useEffect } from "react";
 import { AiFillDislike, AiFillLike } from "react-icons/ai";
 import { FaShare } from "react-icons/fa";
 import { MdPlaylistAdd } from "react-icons/md";
-import { useParams } from "react-router-dom";
-import { ThumbnailCard } from "../../components/index-component";
+import { useNavigate, useParams } from "react-router-dom";
+import { ThumbnailCard, Modal } from "../../components/index-component";
 import {
   useDataContext,
   useFeatureContext,
 } from "../../context/useContext-index";
-import { useAxios } from "../../services/auth/useAxios";
+import { makeAPICall } from "../../services/auth/makeAPICall";
 import { dislikeHandler } from "../../utils/util-index";
 
 export const VideoDetail = () => {
   const param = useParams();
-  const { dataState } = useDataContext();
-  const { featureState, featureDispatch } = useFeatureContext();
+  const { dataState, setLoading } = useDataContext();
+  const { featureState, featureDispatch, isOpen, setIsOpen } =
+    useFeatureContext();
   const videoID = param.undefined;
   const videos = dataState.videos;
   const likedVideos = featureState.likedVideo;
   const videoData = videos && videos.find((video) => video.id === videoID);
   const { id, title, duration, statistics } = videoData;
+  const navigate = useNavigate();
 
   const likedVideoHandler = () =>
-    useAxios(
+    makeAPICall(
       "post",
       "/api/user/likes",
       videoData,
       featureDispatch,
-      "LIKED_VIDEOS"
+      "LIKED_VIDEOS",
+      setLoading
     );
 
   const dislikeVideoHandler = (e) =>
     dislikeHandler(e, id, featureDispatch, likedVideos);
 
   const historyHandler = () => {
-    useAxios(
+    makeAPICall(
       "post",
       "/api/user/history",
       videoData,
       featureDispatch,
-      "HISTORY"
+      "HISTORY",
+      setLoading
     );
   };
   useEffect(() => {
     historyHandler();
   }, []);
+  const playListHandler = () => {
+    setIsOpen(!isOpen);
+  };
   return (
     <>
       <div className="p-4">
@@ -80,6 +87,7 @@ export const VideoDetail = () => {
               <span>dislike</span>
             </div>
             <div
+              onClick={playListHandler}
               title="Add to playlist"
               className="flex items-center capitalize gap-2 text-gray-300 hover:text-white text-xl text-center px-2 py-2 m-2  cursor-pointer"
             >
@@ -87,6 +95,12 @@ export const VideoDetail = () => {
 
               <span>save</span>
             </div>
+            {isOpen && (
+              <div>
+                <Modal videoID={id} />
+              </div>
+            )}
+
             <div
               title="Watch Later"
               className="flex items-center capitalize gap-2 text-gray-300 hover:text-white text-xl text-center px-2 py-2 m-2  cursor-pointer"

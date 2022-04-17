@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
@@ -5,7 +6,10 @@ import {
   Routes,
   useParams,
 } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Navbar } from "../components/index-component";
+import { useDataContext } from "../context/useContext-index";
 import {
   Explore,
   Hero,
@@ -16,19 +20,17 @@ import {
   Playlist,
   SignUp,
   VideoDetail,
+  VideosInPlaylist,
   WatchLater,
 } from "../pages/pages-index";
-import axios from "axios";
-import { useDataContext } from "../context/useContext-index";
 import { ScrollToTop } from "../services/ScrollToTop";
 
 const VIDEOS_API = "/api/videos";
 
 function RoutePage() {
-  const { dataState, dataDispatch } = useDataContext();
-  const [loading, setLoading] = useState(false);
+  const { loading, setLoading, dataState, dataDispatch } = useDataContext();
   const [searchValue, setSearchValue] = useState();
-  let { categoryName, videoID, all } = useParams;
+  let { categoryName, videoID } = useParams;
 
   useEffect(() => {
     fetchData();
@@ -56,7 +58,6 @@ function RoutePage() {
         <Navbar setSearchValue={setSearchValue} />
         {loading ? (
           <Routes>
-            {" "}
             <Route
               exact
               path="/"
@@ -76,14 +77,37 @@ function RoutePage() {
             <Route exact path="/playlist" element={<Playlist />} />
             <Route
               exact
+              path={"/playlist/:playlistID"}
+              element={<VideosInPlaylist />}
+            />
+
+            <Route
+              exact
               path={`/video/:${videoID}`}
               element={<VideoDetail />}
             />
             <Route exact path="/page404" element={<Page404 />} />
           </Routes>
         ) : (
-          <p>loading...</p>
+          <div className="flex items-center h-screen capitalize justify-center text-3xl font-semibold">
+            <div id="spinnerBody" className="bg-gray-900">
+              <div className="sk-cube-grid ">
+                <div className="sk-cube sk-cube1"></div>
+                <div className="sk-cube sk-cube2"></div>
+                <div className="sk-cube sk-cube3"></div>
+                <div className="sk-cube sk-cube4"></div>
+                <div className="sk-cube sk-cube5"></div>
+                <div className="sk-cube sk-cube6"></div>
+                <div className="sk-cube sk-cube7"></div>
+                <div className="sk-cube sk-cube8"></div>
+                <div className="sk-cube sk-cube9"></div>
+              </div>
+            </div>
+          </div>
         )}
+        <ToastContainer
+          toastStyle={{ color: "#fafafa", backgroundColor: "#e11d48" }}
+        />
       </Router>
     </>
   );

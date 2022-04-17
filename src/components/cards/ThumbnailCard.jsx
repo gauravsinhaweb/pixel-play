@@ -1,30 +1,33 @@
-import React from "react";
-import { AiOutlineClockCircle } from "react-icons/ai";
+import React, { useState } from "react";
+import { BiDotsVerticalRounded } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
+import { MdWatchLater } from "react-icons/md";
 import {
   useDataContext,
   useFeatureContext,
 } from "../../context/useContext-index";
-import { useAxios } from "../../services/auth/useAxios";
+import { makeAPICall } from "../../services/auth/makeAPICall";
 
 export const ThumbnailCard = (props) => {
   const {
     video: { id, title, duration, statistics, channelTitle },
   } = props;
-  const { dataState } = useDataContext();
+  const { dataState, setLoading } = useDataContext();
   const { featureDispatch } = useFeatureContext();
+  const [show, setShow] = useState(false);
 
   const navigate = useNavigate();
   const videos = dataState.videos;
   const videoData = videos && videos.find((video) => video.id === id);
 
   const watchLaterHandler = () =>
-    useAxios(
+    makeAPICall(
       "post",
       "/api/user/watchlater",
       videoData,
       featureDispatch,
-      "WATCH_LATER"
+      "WATCH_LATER",
+      setLoading
     );
   return (
     <>
@@ -43,16 +46,43 @@ export const ThumbnailCard = (props) => {
         </div>
         <div className="flex justify-between items-center pt-4 py-2 px-4">
           <div></div>
-          <div
-            onClick={watchLaterHandler}
-            title="Watch Later"
-            className="text-xl"
+
+          <button
+            onClick={() => setShow(!show)}
+            id="dropdownDefault"
+            data-dropdown-toggle="dropdown"
+            className="text-white text-xl"
+            type="button"
           >
-            {" "}
-            <AiOutlineClockCircle />
-          </div>
+            <BiDotsVerticalRounded />
+          </button>
+
+          {show && (
+            <div
+              id="dropdown"
+              className="absolute ml-24 mt-20 z-10 w-44 bg-white rounded divide-gray-100 shadow dark:bg-gray-700"
+              data-popper-placement="bottom"
+            >
+              <ul
+                className="py-1 text-sm text-gray-700 dark:text-gray-200"
+                aria-labelledby="dropdownDefault"
+              >
+                <li>
+                  <div
+                    onClick={watchLaterHandler}
+                    className="flex block gap-2 py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  >
+                    <span title="Watch Later" className="text-xl">
+                      <MdWatchLater />
+                    </span>
+                    <span> Watch Later</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
-        <div className="flex flex-row gap-2 pb-2 px-2">
+        <div className="flex flex-row gap-2 pb-4 px-2">
           <img
             src="https://yt3.ggpht.com/ytc/AKedOLSZBBX-LsEFQcPkY2GKImrPyIUxanR3KzLW6znx=s176-c-k-c0x00ffffff-no-rj"
             className="rounded-full max-h-10 max-w-10"
